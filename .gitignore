@@ -1,0 +1,12 @@
+.idea/
+*.iml
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
+*.project
+maven-repo/
+.m2/
