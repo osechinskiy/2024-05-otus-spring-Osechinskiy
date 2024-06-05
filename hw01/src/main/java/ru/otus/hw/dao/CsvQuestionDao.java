@@ -15,9 +15,9 @@ import ru.otus.hw.exceptions.QuestionReadException;
 
 @RequiredArgsConstructor
 public class CsvQuestionDao implements QuestionDao {
-    private static final int ONE_LINE_SKIP = 1;
+    private static final int LINE_SKIP_COUNT = 1;
 
-    private static final char SEMICOLON = ';';
+    private static final char SEPARATOR = ';';
 
     private final TestFileNameProvider fileNameProvider;
 
@@ -29,8 +29,8 @@ public class CsvQuestionDao implements QuestionDao {
             URL resource = getClass().getClassLoader().getResource(fileNameProvider.getTestFileName());
             questionsDto = new CsvToBeanBuilder(new FileReader(resource.getFile()))
                     .withType(QuestionDto.class)
-                    .withSkipLines(ONE_LINE_SKIP)
-                    .withSeparator(SEMICOLON)
+                    .withSkipLines(LINE_SKIP_COUNT)
+                    .withSeparator(SEPARATOR)
                     .build()
                     .parse();
         } catch (Exception e) {

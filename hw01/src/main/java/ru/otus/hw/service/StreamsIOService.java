@@ -1,14 +1,11 @@
 package ru.otus.hw.service;
 
 import java.io.PrintStream;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public class StreamsIOService implements IOService {
     private final PrintStream printStream;
-
-    public StreamsIOService(PrintStream printStream) {
-
-        this.printStream = printStream;
-    }
 
     @Override
     public void printLine(String s) {
