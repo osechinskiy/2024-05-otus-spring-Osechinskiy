@@ -4,31 +4,37 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import ru.otus.hw.config.AppProperties;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import ru.otus.hw.Application;
+import ru.otus.hw.config.TestFileNameProvider;
 import ru.otus.hw.domain.Question;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = Application.class)
+@TestPropertySource(locations = "classpath:/test-application.properties")
 @DisplayName("DAO CsvQuestionDao")
 class CsvQuestionDaoTest {
 
-    @Mock
-    private AppProperties appProperties;
-    @InjectMocks
-    private CsvQuestionDao csvQuestionDao;
+    @Autowired
+    TestFileNameProvider testFileNameProvider;
+    @Autowired
+    CsvQuestionDao csvQuestionDao;
 
     @Test
     @DisplayName("Получение данных из ДАО")
     void readCsvFile() {
-        when(appProperties.getTestFileName()).thenReturn("test-questions.csv");
         List<Question> questions = csvQuestionDao.findAll();
 
-        assertEquals(5, questions.size());
+        assertAll(
+                () -> assertEquals(5, questions.size()),
+                () -> questions.forEach(question -> assertNotNull(question.text())),
+                () -> questions.forEach(question -> assertNotNull(question.answers()))
+        );
     }
 
 }

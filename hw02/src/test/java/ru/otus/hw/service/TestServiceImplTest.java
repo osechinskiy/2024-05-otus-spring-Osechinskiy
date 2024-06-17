@@ -18,6 +18,7 @@ import ru.otus.hw.exceptions.QuestionReadException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -40,24 +41,24 @@ class TestServiceImplTest {
     }
 
     @Test
-    @DisplayName("Кол-во правильных ответов увеличивается")
+    @DisplayName("Засчитывает правильный ответ")
     void executeTestResultWithValidAnswer() {
         Student student = new Student("Ivan", "Ivanov");
-        String validAnswer = "Science doesn't know this yet";
+        int validAnswerNumber = 1;
         when(questionDao.findAll()).thenReturn(mockQuestions());
-        when(ioService.readStringWithPrompt(any())).thenReturn(validAnswer);
+        when(ioService.readIntForRangeWithPrompt(anyInt(), anyInt(), any(), any())).thenReturn(validAnswerNumber);
         TestResult result = testService.executeTestFor(student);
 
         assertEquals(1, result.getRightAnswersCount());
     }
 
     @Test
-    @DisplayName("Кол-во правильных ответов не увеличивается")
+    @DisplayName("Не засчитывает неправильный ответ")
     void executeTestResultWithInvalidAnswer() {
         Student student = new Student("Ivan", "Ivanov");
-        String invalidAnswer = "Certainly. The red UFO is from Mars. And green is from Venus";
+        int invalidAnswer = 2;
         when(questionDao.findAll()).thenReturn(mockQuestions());
-        when(ioService.readStringWithPrompt(any())).thenReturn(invalidAnswer);
+        when(ioService.readIntForRangeWithPrompt(anyInt(), anyInt(), any(), any())).thenReturn(invalidAnswer);
         TestResult result = testService.executeTestFor(student);
 
         assertEquals(0, result.getRightAnswersCount());
