@@ -9,3 +9,4 @@
 ### Папки
 * hw01-xml-config - простое приложение, сконфигурированное XML-контекстом
 * hw02-annotation-config - готовое современное приложение на чистом Spring
+* hw03-spring-boot - Production-ready приложение на Spring Boot
