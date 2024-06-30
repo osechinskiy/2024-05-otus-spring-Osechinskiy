@@ -1,0 +1,7 @@
+${AnsiColor.RED}.------.${AnsiColor.BLACK}.------.
+${AnsiColor.RED}|A.--. |${AnsiColor.BLACK}|K.--. |
+${AnsiColor.RED}| (\/) |${AnsiColor.BLACK}| (\/) |
+${AnsiColor.RED}| :\/: |${AnsiColor.BLACK}| :\/: |
+${AnsiColor.RED}| '--'A|${AnsiColor.BLACK}| '--'K|
+${AnsiColor.RED}`------'${AnsiColor.BLACK}`------'
+${AnsiColor.DEFAULT}

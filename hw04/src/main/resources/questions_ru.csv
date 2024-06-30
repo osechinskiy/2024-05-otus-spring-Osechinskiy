@@ -1,0 +1,6 @@
+# Добавить сюда своих вопросов. Эту строку надо пропустить при настройке CsvToBean (withSkipLines)
+Есть ли жизнь на Марсе?;Это науке пока не известно%true|Конечно. Красные (НЛО) это с Марса. А зеленые (НЛО) с Венеры%false|Точно нет%false
+Как нужно загружать ресурс из jar в Java?;ClassLoader#geResourceAsStream или ClassPathResource#getInputStream%true|ClassLoader#geResource#getFile + FileReader%false|Wingardium Leviosa%false
+Какой предпочтительный способ реакции на исключения?;@SneakyThrow%false|e.printStackTrace()%false|Проброс дальше с предварительным оборачиванием в бизнес-исключение (например, QuestionReadException)%true|Игнорирование исключения%false
+В чём основное различие между String и StringBuilder в Java?;StringBuilder является изменяемым, а String — нет%true|Можно использовать String для конкатенации, а StringBuilder нет?%false|Можно использовать StringBuilder в многопоточных средах, а String нельзя%false|Ни один из вышеперечисленных%false
+Какой из этих способов не является допустимым способом создания массива в Java?;int[] myArray = new int[5]%false|int myArray[] = {1, 2, 3, 4, 5}%false|int[][] myArray = {{1, 2}, {3, 4}}%false|Все перечисленные способы являются допустимыми способами создания массивов в Java%true
