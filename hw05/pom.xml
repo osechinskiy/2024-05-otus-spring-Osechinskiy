@@ -20,6 +20,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <h2.version>2.2.220</h2.version>
         <spring.shell.version>3.2.4</spring.shell.version>
+        <junit.version>5.10.2</junit.version>
         <liquibase.version>4.20.0</liquibase.version>
         <checkstyle-plugin.version>3.3.1</checkstyle-plugin.version>
         <checkstyle.version>10.15.0</checkstyle.version>
@@ -32,6 +33,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jdbc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+            <version>${junit.version}</version>
         </dependency>
 
         <dependency>
