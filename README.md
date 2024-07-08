@@ -11,3 +11,4 @@
 * hw02-annotation-config - готовое современное приложение на чистом Spring
 * hw03-spring-boot - Production-ready приложение на Spring Boot
 * hw04-spring-shell - Приложение на Spring Shell
+* hw05-jdbc - приложение с хранением данных в реляционной БД, которое в дальнейшем будем развивать
