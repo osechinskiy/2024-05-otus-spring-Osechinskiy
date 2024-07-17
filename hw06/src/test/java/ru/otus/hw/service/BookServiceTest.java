@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.otus.hw.converters.AuthorConverter;
 import ru.otus.hw.converters.BookConverter;
 import ru.otus.hw.converters.GenreConverter;
+import ru.otus.hw.exceptions.EntityNotFoundException;
 import ru.otus.hw.models.Genre;
 import ru.otus.hw.repositories.JpaAuthorRepository;
 import ru.otus.hw.repositories.JpaBookRepository;
@@ -24,6 +25,7 @@ import ru.otus.hw.services.BookService;
 import ru.otus.hw.services.BookServiceImpl;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DisplayName("Сервис для работы с книгами ")
 @DataJpaTest
@@ -78,9 +80,16 @@ class BookServiceTest {
                 .isEqualTo(dbBook.get());
     }
 
-    @DisplayName("должен обновлять книгу")
+    @DisplayName("должен выбросить EntityNotFoundException при создании")
     @Test
     @Order(4)
+    void shouldThrowEntityNotFoundExceptionAtInsert() {
+        assertThrows(EntityNotFoundException.class, () -> bookService.insert("Test_Title_book", 1111, Set.of(1L)));
+    }
+
+    @DisplayName("должен обновлять книгу")
+    @Test
+    @Order(5)
     void shouldUpdateBook() {
         var oldBook = bookService.findById(1L);
         var genreIds = oldBook.get().getGenres().stream().map(Genre::getId).collect(Collectors.toSet());
@@ -92,9 +101,20 @@ class BookServiceTest {
                 .isEqualTo(dbBook.get());
     }
 
+    @DisplayName("должен выбросить EntityNotFoundException при обновлении")
+    @Test
+    @Order(6)
+    void shouldThrowEntityNotFoundExceptionAtUpdate() {
+        var oldBook = bookService.findById(1L);
+        var genreIds = oldBook.get().getGenres().stream().map(Genre::getId).collect(Collectors.toSet());
+
+        assertThrows(EntityNotFoundException.class,
+                () -> bookService.update(oldBook.get().getId(), "New title", 0, genreIds));
+    }
+
     @DisplayName("должен удалять книгу по id")
     @Test
-    @Order(5)
+    @Order(7)
     void shouldDeleteBookById() {
         bookService.deleteById(1L);
         var actualBook = bookService.findById(1L);
