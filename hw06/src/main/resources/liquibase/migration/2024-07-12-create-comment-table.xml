@@ -1,0 +1,59 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+    
+    <changeSet id="1" author="boris.osechinskiy">
+        <preConditions onFail="WARN">
+            <not>
+                <tableExists tableName="comments"/>
+            </not>
+        </preConditions>
+        <comment>Создание таблицы comments</comment>
+        <createTable tableName="comments">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="book_id" type="int">
+                <constraints deleteCascade="true" foreignKeyName="fk_comments_books" references="books(id)"/>
+            </column>
+            <column name="text" type="varchar(255)"/>
+        </createTable>
+        <rollback>
+            <delete tableName="comments"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2" author="boris.osechinskiy">
+        <preConditions onFail="WARN">
+            <tableExists tableName="comments"/>
+        </preConditions>
+        <comment>Наполнение таблицы comments данными</comment>
+        <insert tableName="comments">
+            <column name="book_id" value="1"/>
+            <column name="text" value="First comment"/>
+        </insert>
+        <insert tableName="comments">
+            <column name="book_id" value="1"/>
+            <column name="text" value="Second comment"/>
+        </insert>
+        <insert tableName="comments">
+            <column name="book_id" value="1"/>
+            <column name="text" value="Third comment"/>
+        </insert>
+        <insert tableName="comments">
+            <column name="book_id" value="2"/>
+            <column name="text" value="First comment"/>
+        </insert>
+        <insert tableName="comments">
+            <column name="book_id" value="2"/>
+            <column name="text" value="Second comment"/>
+        </insert>
+        <insert tableName="comments">
+            <column name="book_id" value="3"/>
+            <column name="text" value="First comment"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
