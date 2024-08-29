@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:maindb
+
+  jpa:
+    generate-ddl: false
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+
+  liquibase:
+    enabled: true
+    change-log: liquibase/changelog.xml
