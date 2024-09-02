@@ -1,0 +1,49 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="1" author="boris.osechinskiy">
+        <preConditions onFail="WARN">
+            <not>
+                <tableExists tableName="users"/>
+            </not>
+        </preConditions>
+        <comment>Создание таблицы пользователей</comment>
+        <createTable tableName="users">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="username" type="varchar(255)">
+                    <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="password" type="varchar(255)"/>
+            <column name="is_active" type="bool" defaultValue="false"/>
+            <column name="authority" type="varchar(255)"/>
+        </createTable>
+        <rollback>
+            <delete tableName="comments"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="2" author="boris.osechinskiy">
+        <preConditions onFail="WARN">
+            <tableExists tableName="users"/>
+        </preConditions>
+        <comment>Наполнение таблицы users данными</comment>
+        <insert tableName="users">
+            <column name="username" value="user"/>
+            <column name="password" value="$2a$10$WNjeMNEiyFIszBkl.FdCEun.T1q/NuJL26xloV65w8CKjh6ciW3Xe"/>
+            <column name="is_active" value="true"/>
+            <column name="authority" value="USER"/>
+        </insert>
+        <insert tableName="users">
+            <column name="username" value="admin"/>
+            <column name="password" value="$2a$10$mlXzmxPCXOwMCyV7RObAw.9BSfa2MIiVIZIzRDbxFqqYYxVJW6FNq"/>
+            <column name="is_active" value="true"/>
+            <column name="authority" value="ADMIN"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
