@@ -13,20 +13,14 @@ import ru.otus.hw.models.dto.BookDto;
 import ru.otus.hw.models.dto.BookValidationDto;
 import ru.otus.hw.models.dto.GenreDto;
 import ru.otus.hw.exceptions.EntityNotFoundException;
-import ru.otus.hw.mappers.AuthorMapper;
 import ru.otus.hw.mappers.BookMapper;
-import ru.otus.hw.mappers.GenreMapper;
 import ru.otus.hw.models.Author;
 import ru.otus.hw.models.Book;
 import ru.otus.hw.models.Genre;
 import ru.otus.hw.rest.controller.BookController;
-import ru.otus.hw.rest.dto.BookEditResponse;
 import ru.otus.hw.rest.dto.BookRequest;
 import ru.otus.hw.rest.dto.ValidationResponse;
-import ru.otus.hw.services.AuthorService;
 import ru.otus.hw.services.BookService;
-import ru.otus.hw.services.CommentService;
-import ru.otus.hw.services.GenreService;
 
 import java.util.List;
 import java.util.Set;
@@ -49,26 +43,11 @@ class BookControllerTest {
     @MockBean
     private BookService bookService;
 
-    @MockBean
-    private AuthorService authorService;
-
     @Autowired
     private ObjectMapper mapper;
 
     @MockBean
-    private GenreService genreService;
-
-    @MockBean
-    private CommentService commentService;
-
-    @MockBean
     private BookMapper bookMapper;
-
-    @MockBean
-    private AuthorMapper authorMapper;
-
-    @MockBean
-    private GenreMapper genreMapper;
 
     Author author = new Author(1L, "Author_1");
     List<Genre> genres = List.of(new Genre(1L, "Genre_1"));
@@ -92,20 +71,17 @@ class BookControllerTest {
     @DisplayName("возвращать книгу по id")
     @Test
     void shouldReturnBookById() throws Exception {
-        Book book = new Book(1L, "Book1 Title", author, genres);
+        Book book = new Book(1L, "Book1_Title", author, genres);
+        AuthorDto authorDto = new AuthorDto(1L, "Author_1");
+        Set<GenreDto> genresDto = Set.of(new GenreDto(1L, "Genre_1"));
+        BookDto bookDto = new BookDto(book.getId(), book.getTitle(), authorDto, genresDto);
 
         when(bookService.findById(1L)).thenReturn(book);
-        when(authorService.findAll()).thenReturn(List.of(author));
-        when(genreService.findAll()).thenReturn(genres);
-        when(authorMapper.toDto(author)).thenCallRealMethod();
-
-        List<AuthorDto> authorDtos = List.of(authorMapper.toDto(author));
-        List<GenreDto> genreDtos = genres.stream().map(genreMapper::toDto).toList();
-        BookEditResponse bookEditResponse = new BookEditResponse(bookMapper.toDto(book), authorDtos, genreDtos);
+        when(bookMapper.toDto(book)).thenReturn(bookDto);
 
         mockMvc.perform(get("/api/v1/book/%d".formatted(book.getId())))
                 .andExpect(status().isOk())
-                .andExpect(content().json(mapper.writeValueAsString(bookEditResponse)));
+                .andExpect(content().json(mapper.writeValueAsString(bookDto)));
     }
 
     @DisplayName("возвращать 404 при поиске несуществующей книги")

@@ -9,13 +9,16 @@ const TextInputComponent = (props) => {
     const titleHandleChange = (event) => {
         setTitle(event.target.value);
     };
+
+    if (data && title === '') {
+        setTitle(data);
+    }
+
     const map = errors.badFields;
     useEffect(() => {
-        if (data && data.title && title === '') {
-            setTitle(data.title);
-        }
         action(title)
-    }, [action, data, title])
+
+    }, [action, title])
     return (
         <React.Fragment>
             <TextField

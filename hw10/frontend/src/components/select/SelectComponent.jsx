@@ -11,12 +11,13 @@ const SelectComponent = (props) => {
     };
     const map = errors.badFields;
 
+    if (authorInfo?.fullName && author === '') {
+        setAuthor(authorInfo.id);
+    }
+
     useEffect(() => {
-        if (authorInfo && authorInfo.fullName && author === '') {
-            setAuthor(authorInfo.id);
-        }
         action(author)
-    }, [action, author, authorInfo])
+    }, [action, author])
 
     return (
         <React.Fragment>

@@ -10,18 +10,22 @@ import SelectComponent from "../../components/select/SelectComponent.jsx";
 import TextInputComponent from "../../components/input/TextInputComponent.jsx";
 import {useParams, useNavigate} from "react-router-dom";
 
-const getNewBookApiData = async (setBook) => {
-    const response = await fetch(
-        "/api/v1/book"
-    ).then((response) => response.json());
-    setBook(response);
-};
-
-const getBookApiData = async (id, setBook) => {
-    const response = await fetch(
+const getBookApiData = async (id) => {
+   return await fetch(
         "/api/v1/book/" + id
     ).then((response) => response.json());
-    setBook(response);
+};
+
+const getAuthorsApiData = async () => {
+   return await fetch(
+        "/api/v1/authors"
+    ).then((response) => response.json());
+};
+
+const getGenresApiData = async () => {
+   return await fetch(
+        "/api/v1/genres"
+    ).then((response) => response.json());
 };
 
 
@@ -62,17 +66,51 @@ const putEditBookApiData = async (id, book, author, genre, setErrors, navigate) 
 const BookEdit = (props) => {
 
     const {id} = useParams();
-    const [book, setBook] = useState('');
-    const [title, setTitle] = useState('');
-    const [author, setAuthor] = useState('');
-    const [genre, setGenre] = useState('');
+    const [book, setBook] = useState(null);
+    const [title, setTitle] = useState(null);
+    const [author, setAuthor] = useState(null);
+    const [authorData, setAuthorData] = useState(null);
+    const [genre, setGenre] = useState(null);
+    const [genreData, setGenreData] = useState(null);
     const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
 
 
     useEffect(() => {
-        id ? getBookApiData(id, setBook) : getNewBookApiData(setBook);
+        const fetchData = async () => {
+            if (id) {
+                try {
+                    const [bookData, authorsData, genresData] = await Promise.all([
+                        getBookApiData(id),
+                        getAuthorsApiData(),
+                        getGenresApiData()
+                    ]);
+
+                    setBook(bookData);
+                    setAuthorData(authorsData);
+                    setGenreData(genresData);
+                } catch (error) {
+                    console.error("Error fetching data:", error);
+                }
+            } else {
+                try {
+                    const [authorsData, genresData] = await Promise.all([
+                        getAuthorsApiData(),
+                        getGenresApiData()
+                    ]);
+                    setAuthorData(authorsData);
+                    setGenreData(genresData);
+                } catch (error) {
+                    console.error("Error fetching data:", error);
+                }
+            }
+        };
+
+        fetchData();
+
     }, [id]);
+
+    console.log(title, author, genre)
 
     return (
         <React.Fragment>
@@ -89,21 +127,22 @@ const BookEdit = (props) => {
                             action={setTitle}
                             sx={{width: 1 / 2}}
                             errors={errors}
-                            data={book.book}
+                            data={book?.title}
                         />
                         <SelectComponent
-                            data={book && book.authors}
+                            data={authorData}
                             action={setAuthor}
                             sx={{width: 1 / 2}}
                             errors={errors}
-                            authorInfo={book.book && book.book.author}
+                            authorInfo={book?.author}
                         />
+
                         <MultipleSelectComponent
                             sx={{width: 1 / 2}}
-                            data={book.genres}
+                            data={genreData}
                             action={setGenre}
                             errors={errors}
-                            genresInfo={book.book && book.book.genres}
+                            genresInfo={book?.genres}
                         />
                         <Button
                             onClick={() => {

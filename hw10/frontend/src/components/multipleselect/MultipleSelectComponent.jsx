@@ -36,13 +36,14 @@ const MultipleSelectComponent = (props) => {
         )
     };
 
+    if (genresInfo && genre.length === 0) {
+        let genresId = genresInfo.map(row => row.id)
+        setGenre(typeof genresId === 'string' ? genresId.split(',') : genresId)
+    }
+
     useEffect(() => {
-        if (genresInfo && genre.length === 0) {
-            let genresId = genresInfo.map(row => row.id)
-            setGenre(typeof genresId === 'string' ? genresId.split(',') : genresId)
-        }
         action(genre)
-    }, [action, genre, genresInfo])
+    }, [action, genre])
 
     const map = errors.badFields;
 
