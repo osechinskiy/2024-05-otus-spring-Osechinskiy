@@ -20,7 +20,7 @@ const style = {
 
 const deleteApiData = async (id, action) => {
     await fetch(
-        "/api/v1/book",
+        "/api/v1/books",
         {
             method: "DELETE",
             headers: {

@@ -12,7 +12,7 @@ import {useParams, useNavigate} from "react-router-dom";
 
 const getBookApiData = async (id) => {
    return await fetch(
-        "/api/v1/book/" + id
+        "/api/v1/books/" + id
     ).then((response) => response.json());
 };
 
@@ -31,7 +31,7 @@ const getGenresApiData = async () => {
 
 const putNewBookApiData = async (book, author, genre, setErrors, navigate) => {
     const response = await fetch(
-        "/api/v1/book",
+        "/api/v1/books",
         {
             method: "POST",
             headers: {
@@ -48,7 +48,7 @@ const putNewBookApiData = async (book, author, genre, setErrors, navigate) => {
 
 const putEditBookApiData = async (id, book, author, genre, setErrors, navigate) => {
     const response = await fetch(
-        "/api/v1/book",
+        "/api/v1/books",
         {
             method: "PATCH",
             headers: {
