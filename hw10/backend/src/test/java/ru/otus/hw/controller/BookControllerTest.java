@@ -79,7 +79,7 @@ class BookControllerTest {
         when(bookService.findById(1L)).thenReturn(book);
         when(bookMapper.toDto(book)).thenReturn(bookDto);
 
-        mockMvc.perform(get("/api/v1/book/%d".formatted(book.getId())))
+        mockMvc.perform(get("/api/v1/books/%d".formatted(book.getId())))
                 .andExpect(status().isOk())
                 .andExpect(content().json(mapper.writeValueAsString(bookDto)));
     }
@@ -100,7 +100,7 @@ class BookControllerTest {
 
         when(bookService.insert(bookDto)).thenReturn(book);
 
-        var content = post("/api/v1/book")
+        var content = post("/api/v1/books")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(bookDto));
 
@@ -117,7 +117,7 @@ class BookControllerTest {
 
         when(bookService.update(bookDto)).thenReturn(book);
 
-        var content = patch("/api/v1/book")
+        var content = patch("/api/v1/books")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(bookDto));
 
@@ -131,7 +131,7 @@ class BookControllerTest {
     void shouldDeleteBook() throws Exception {
         doNothing().when(bookService);
 
-        var content = delete("/api/v1/book")
+        var content = delete("/api/v1/books")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(new BookRequest(1L)));
 
@@ -147,7 +147,7 @@ class BookControllerTest {
 
         when(bookService.insert(bookDto)).thenReturn(book);
 
-        var content = post("/api/v1/book")
+        var content = post("/api/v1/books")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(bookDto));
 
@@ -162,7 +162,7 @@ class BookControllerTest {
 
         when(bookService.insert(bookDto)).thenThrow(new EntityNotFoundException("Author is not found"));
 
-        var content = post("/api/v1/book")
+        var content = post("/api/v1/books")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(bookDto));
 

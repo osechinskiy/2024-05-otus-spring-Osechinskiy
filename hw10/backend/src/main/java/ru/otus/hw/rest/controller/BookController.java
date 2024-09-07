@@ -37,7 +37,7 @@ public class BookController {
         return bookService.findAll().stream().map(bookMapper::toDto).toList();
     }
 
-    @PostMapping("/api/v1/book")
+    @PostMapping("/api/v1/books")
     public ResponseEntity<ValidationResponse> createBook(@RequestBody @Valid BookValidationDto book,
             BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -47,18 +47,18 @@ public class BookController {
         return new ResponseEntity<>(new ValidationResponse(false, null), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/api/v1/book")
+    @DeleteMapping("/api/v1/books")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteBook(@RequestBody BookRequest bookRequest) {
         bookService.deleteById(bookRequest.getId());
     }
 
-    @GetMapping("/api/v1/book/{id}")
+    @GetMapping("/api/v1/books/{id}")
     public BookDto getBook(@PathVariable long id) {
         return bookMapper.toDto(bookService.findById(id));
     }
 
-    @PatchMapping("/api/v1/book")
+    @PatchMapping("/api/v1/books")
     public ResponseEntity<ValidationResponse> updateBook(@RequestBody @Valid BookValidationDto book,
             BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
