@@ -20,13 +20,12 @@ const style = {
 
 const deleteApiData = async (id, action) => {
     await fetch(
-        "/api/v1/books",
+        "/api/v1/books/" + id,
         {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({id: id})
         }
     );
     await getApiData(action)

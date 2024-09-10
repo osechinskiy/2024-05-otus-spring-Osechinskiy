@@ -22,7 +22,7 @@ public class CommentController {
 
     private final CommentMapper commentMapper;
 
-    @GetMapping("/api/v1/comment/{id}")
+    @GetMapping("/api/v1/comments/{id}")
     public CommentResponse comment(@PathVariable long id) {
         Book book = bookService.findById(id);
         List<Comment> comments = commentService.findByBookId(id);

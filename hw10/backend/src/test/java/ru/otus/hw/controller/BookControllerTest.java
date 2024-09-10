@@ -131,7 +131,7 @@ class BookControllerTest {
     void shouldDeleteBook() throws Exception {
         doNothing().when(bookService);
 
-        var content = delete("/api/v1/books")
+        var content = delete("/api/v1/books/%d".formatted(1))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(new BookRequest(1L)));
 

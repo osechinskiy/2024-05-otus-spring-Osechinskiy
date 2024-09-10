@@ -56,7 +56,7 @@ class CommentControllerTest {
         when(bookService.findById(1L)).thenReturn(book);
         when(commentService.findByBookId(1L)).thenReturn(comments);
 
-        mvc.perform(get("/api/v1/comment/1"))
+        mvc.perform(get("/api/v1/comments/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(mapper.writeValueAsString(commentResponse)));
     }

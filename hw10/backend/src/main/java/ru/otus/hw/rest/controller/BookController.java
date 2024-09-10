@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.otus.hw.models.dto.BookDto;
 import ru.otus.hw.models.dto.BookValidationDto;
 import ru.otus.hw.mappers.BookMapper;
-import ru.otus.hw.rest.dto.BookRequest;
 import ru.otus.hw.rest.dto.ValidationResponse;
 import ru.otus.hw.services.BookService;
 import java.util.List;
@@ -47,10 +46,10 @@ public class BookController {
         return new ResponseEntity<>(new ValidationResponse(false, null), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/api/v1/books")
+    @DeleteMapping("/api/v1/books/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteBook(@RequestBody BookRequest bookRequest) {
-        bookService.deleteById(bookRequest.getId());
+    public void deleteBook(@PathVariable long id) {
+        bookService.deleteById(id);
     }
 
     @GetMapping("/api/v1/books/{id}")
