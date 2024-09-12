@@ -16,4 +16,5 @@
 * hw07-spring-data-jpa - приложение со слоем репозиториев на Spring Data JPA
 * hw08-spring-data - mongo-db - приложение с использованием MongoDB
 * hw09-spring-mvc - Web-приложение полностью на стеке Spring
+* hw10-spring-mvc-rest - современное приложение на стеке Spring
 * hw11-spring-security - приложение с использованием Spring Security
