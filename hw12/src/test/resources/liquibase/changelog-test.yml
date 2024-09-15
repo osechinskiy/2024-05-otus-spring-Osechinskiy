@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - include:
+      file: liquibase/sql/schema-test.sql
+  - include:
+      file: liquibase/sql/data-test.sql
+  - include:
+      file: liquibase/migration/2024-07-12_create_comment_table_test.yml
+  - include:
+      file: liquibase/migration/2024-09-02_create_users_table_test.yml
+  - include:
+      file: liquibase/migration/2024-09-12_create_acl_table-test.yml
+  - include:
+      file: liquibase/migration/2024-09-12_add_acl_data-test.yml

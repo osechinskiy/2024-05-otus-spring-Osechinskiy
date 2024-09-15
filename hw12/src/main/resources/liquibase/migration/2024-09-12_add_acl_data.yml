@@ -1,0 +1,413 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: boris.osechinskiy
+      preConditions:
+        - onFail: WARN
+        - tableExists:
+            tableName: acl_class
+      comment: Наполнение таблицы acl_class данными
+      changes:
+        - insert:
+            tableName: acl_class
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: class
+                  value: ru.otus.hw.models.Book
+        - insert:
+            tableName: acl_class
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: class
+                  value: ru.otus.hw.dto.BookDto
+
+  - changeSet:
+      id: 2
+      author: boris.osechinskiy
+      preConditions:
+        - onFail: WARN
+        - tableExists:
+            tableName: acl_sid
+      comment: Наполнение таблицы acl_sid данными
+      changes:
+        - insert:
+            tableName: acl_sid
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: principal
+                  value: 1
+              - column:
+                  name: sid
+                  value: user1
+        - insert:
+            tableName: acl_sid
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: principal
+                  value: 1
+              - column:
+                  name: sid
+                  value: admin
+        - insert:
+            tableName: acl_sid
+            columns:
+              - column:
+                  name: id
+                  value: 3
+              - column:
+                  name: principal
+                  value: 1
+              - column:
+                  name: sid
+                  value: user2
+
+  - changeSet:
+      id: 3
+      author: boris.osechinskiy
+      preConditions:
+        - onFail: WARN
+        - tableExists:
+            tableName: acl_object_identity
+      comment: Наполнение таблицы acl_object_identity данными
+      changes:
+        - insert:
+            tableName: acl_object_identity
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: object_id_class
+                  value: 1
+              - column:
+                  name: object_id_identity
+                  value: 1
+              - column:
+                  name: parent_object
+                  value: null
+              - column:
+                  name: owner_sid
+                  value: 2
+              - column:
+                  name: entries_inheriting
+                  value: 0
+        - insert:
+            tableName: acl_object_identity
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: object_id_class
+                  value: 1
+              - column:
+                  name: object_id_identity
+                  value: 2
+              - column:
+                  name: parent_object
+                  value: null
+              - column:
+                  name: owner_sid
+                  value: 2
+              - column:
+                  name: entries_inheriting
+                  value: 0
+        - insert:
+            tableName: acl_object_identity
+            columns:
+              - column:
+                  name: id
+                  value: 3
+              - column:
+                  name: object_id_class
+                  value: 1
+              - column:
+                  name: object_id_identity
+                  value: 3
+              - column:
+                  name: parent_object
+                  value: null
+              - column:
+                  name: owner_sid
+                  value: 2
+              - column:
+                  name: entries_inheriting
+                  value: 0
+        - insert:
+            tableName: acl_object_identity
+            columns:
+              - column:
+                  name: id
+                  value: 4
+              - column:
+                  name: object_id_class
+                  value: 2
+              - column:
+                  name: object_id_identity
+                  value: 1
+              - column:
+                  name: parent_object
+                  value: null
+              - column:
+                  name: owner_sid
+                  value: 2
+              - column:
+                  name: entries_inheriting
+                  value: 0
+        - insert:
+            tableName: acl_object_identity
+            columns:
+              - column:
+                  name: id
+                  value: 5
+              - column:
+                  name: object_id_class
+                  value: 2
+              - column:
+                  name: object_id_identity
+                  value: 2
+              - column:
+                  name: parent_object
+                  value: null
+              - column:
+                  name: owner_sid
+                  value: 2
+              - column:
+                  name: entries_inheriting
+                  value: 0
+        - insert:
+            tableName: acl_object_identity
+            columns:
+              - column:
+                  name: id
+                  value: 6
+              - column:
+                  name: object_id_class
+                  value: 2
+              - column:
+                  name: object_id_identity
+                  value: 3
+              - column:
+                  name: parent_object
+                  value: null
+              - column:
+                  name: owner_sid
+                  value: 2
+              - column:
+                  name: entries_inheriting
+                  value: 0
+
+  - changeSet:
+      id: 4
+      author: boris.osechinskiy
+      preConditions:
+        - onFail: WARN
+        - tableExists:
+            tableName: acl_entry
+      comment: Наполнение таблицы acl_entry данными
+      changes:
+        - insert:
+            tableName: acl_entry
+            columns:
+              - column:
+                  name: acl_object_identity
+                  value: 1
+              - column:
+                  name: ace_order
+                  value: 1
+              - column:
+                  name: sid
+                  value: 2
+              - column:
+                  name: mask
+                  value: 1
+              - column:
+                  name: granting
+                  value: 1
+              - column:
+                  name: audit_success
+                  value: 1
+              - column:
+                  name: audit_failure
+                  value: 1
+        - insert:
+            tableName: acl_entry
+            columns:
+              - column:
+                  name: acl_object_identity
+                  value: 4
+              - column:
+                  name: ace_order
+                  value: 1
+              - column:
+                  name: sid
+                  value: 2
+              - column:
+                  name: mask
+                  value: 2
+              - column:
+                  name: granting
+                  value: 1
+              - column:
+                  name: audit_success
+                  value: 1
+              - column:
+                  name: audit_failure
+                  value: 1
+        - insert:
+            tableName: acl_entry
+            columns:
+              - column:
+                  name: acl_object_identity
+                  value: 2
+              - column:
+                  name: ace_order
+                  value: 1
+              - column:
+                  name: sid
+                  value: 2
+              - column:
+                  name: mask
+                  value: 1
+              - column:
+                  name: granting
+                  value: 1
+              - column:
+                  name: audit_success
+                  value: 1
+              - column:
+                  name: audit_failure
+                  value: 1
+        - insert:
+            tableName: acl_entry
+            columns:
+              - column:
+                  name: acl_object_identity
+                  value: 5
+              - column:
+                  name: ace_order
+                  value: 2
+              - column:
+                  name: sid
+                  value: 2
+              - column:
+                  name: mask
+                  value: 2
+              - column:
+                  name: granting
+                  value: 1
+              - column:
+                  name: audit_success
+                  value: 1
+              - column:
+                  name: audit_failure
+                  value: 1
+        - insert:
+            tableName: acl_entry
+            columns:
+              - column:
+                  name: acl_object_identity
+                  value: 3
+              - column:
+                  name: ace_order
+                  value: 1
+              - column:
+                  name: sid
+                  value: 2
+              - column:
+                  name: mask
+                  value: 1
+              - column:
+                  name: granting
+                  value: 1
+              - column:
+                  name: audit_success
+                  value: 1
+              - column:
+                  name: audit_failure
+                  value: 1
+        - insert:
+            tableName: acl_entry
+            columns:
+              - column:
+                  name: acl_object_identity
+                  value: 6
+              - column:
+                  name: ace_order
+                  value: 2
+              - column:
+                  name: sid
+                  value: 2
+              - column:
+                  name: mask
+                  value: 2
+              - column:
+                  name: granting
+                  value: 1
+              - column:
+                  name: audit_success
+                  value: 1
+              - column:
+                  name: audit_failure
+                  value: 1
+        - insert:
+            tableName: acl_entry
+            columns:
+              - column:
+                  name: acl_object_identity
+                  value: 1
+              - column:
+                  name: ace_order
+                  value: 3
+              - column:
+                  name: sid
+                  value: 1
+              - column:
+                  name: mask
+                  value: 1
+              - column:
+                  name: granting
+                  value: 1
+              - column:
+                  name: audit_success
+                  value: 1
+              - column:
+                  name: audit_failure
+                  value: 1
+        - insert:
+            tableName: acl_entry
+            columns:
+              - column:
+                  name: acl_object_identity
+                  value: 2
+              - column:
+                  name: ace_order
+                  value: 3
+              - column:
+                  name: sid
+                  value: 3
+              - column:
+                  name: mask
+                  value: 1
+              - column:
+                  name: granting
+                  value: 1
+              - column:
+                  name: audit_success
+                  value: 1
+              - column:
+                  name: audit_failure
+                  value: 1
+
