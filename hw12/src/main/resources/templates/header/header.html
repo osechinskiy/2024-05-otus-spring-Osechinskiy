@@ -1,0 +1,27 @@
+<header xmlns:th="http://www.thymeleaf.org">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-md">
+            <div class="d-flex justify-content-around w-100">
+                <div class="collapse navbar-collapse" id="navbarNav">
+
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="book.html" th:href="@{/book/all}">Книги</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="author.html" th:href="@{/author/all}">Авторы</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="genre.html" th:href="@{/genre/all}">Жанры</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="align-self-center">
+                    <a class="link-secondary link-offset-2 link-underline link-underline-opacity-0" href="login-page.html" th:href="@{/login}">
+                        <i class="bi bi-box-arrow-right" style="font-size: 1.3rem"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>

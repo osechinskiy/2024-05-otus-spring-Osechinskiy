@@ -1,0 +1,101 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: boris.osechinskiy
+      preConditions:
+        - onFail: WARN
+        - not:
+            - tableExists:
+                tableName: comments
+      comment: Создание таблицы comments
+      changes:
+        - createTable:
+            tableName: comments
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: book_id
+                  type: int
+                  constraints:
+                    deleteCascade: true
+                    foreignKeyName: fk_comments_books
+                    references: books(id)
+              - column:
+                  name: text
+                  type: varchar(255)
+      rollback:
+        - dropTable:
+            tableName: comments
+
+  - changeSet:
+      id: 2
+      author: boris.osechinskiy
+      preConditions:
+        - onFail: WARN
+        - tableExists:
+            tableName: comments
+      comment: Наполнение таблицы comments данными
+      changes:
+        - insert:
+            tableName: comments
+            columns:
+              - column:
+                  name: book_id
+                  value: 1
+              - column:
+                  name: text
+                  value: First comment
+        - insert:
+            tableName: comments
+            columns:
+              - column:
+                  name: book_id
+                  value: 1
+              - column:
+                  name: text
+                  value: Second comment
+        - insert:
+            tableName: comments
+            columns:
+              - column:
+                  name: book_id
+                  value: 1
+              - column:
+                  name: text
+                  value: Third comment
+        - insert:
+            tableName: comments
+            columns:
+              - column:
+                  name: book_id
+                  value: 2
+              - column:
+                  name: text
+                  value: First comment
+        - insert:
+            tableName: comments
+            columns:
+              - column:
+                  name: book_id
+                  value: 2
+              - column:
+                  name: text
+                  value: Second comment
+        - insert:
+            tableName: comments
+            columns:
+              - column:
+                  name: book_id
+                  value: 3
+              - column:
+                  name: text
+                  value: First comment
+
+
+
+

@@ -1,0 +1,94 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: boris.osechinskiy
+      preConditions:
+        - onFail: WARN
+        - not:
+            - tableExists:
+                tableName: users
+      comment: Создание таблицы пользователей
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: username
+                  type: varchar(255)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(255)
+              - column:
+                  name: is_active
+                  type: bool
+                  defaultValue: false
+              - column:
+                  name: authority
+                  type: varchar(255)
+      rollback:
+        - dropTable:
+            tableName: users
+
+  - changeSet:
+      id: 2
+      author: boris.osechinskiy
+      preConditions:
+        - onFail: WARN
+        - tableExists:
+            tableName: users
+      comment: Наполнение таблицы пользователей данными
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: user1
+              - column:
+                  name: password
+                  value: $2y$10$1Ctlt.Kgz7jhmjE9Dgnko.7A8CSHE464KbXgWEY4hTCTWt7kzXYiu
+              - column:
+                  name: is_active
+                  value: true
+              - column:
+                  name: authority
+                  value: USER1
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: admin
+              - column:
+                  name: password
+                  value: $2a$10$mlXzmxPCXOwMCyV7RObAw.9BSfa2MIiVIZIzRDbxFqqYYxVJW6FNq
+              - column:
+                  name: is_active
+                  value: true
+              - column:
+                  name: authority
+                  value: ADMIN
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: user2
+              - column:
+                  name: password
+                  value: $2y$10$/mApiPWk60qnOd.AIzfqI.pEgrGSomZZyyXZ1juhXf9bDpUrbFm4m
+              - column:
+                  name: is_active
+                  value: true
+              - column:
+                  name: authority
+                  value: USER2

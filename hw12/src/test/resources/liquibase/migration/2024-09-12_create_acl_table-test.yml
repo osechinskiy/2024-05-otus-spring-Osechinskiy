@@ -1,0 +1,220 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: boris.osechinskiy
+      preConditions:
+        - onFail: WARN
+        - not:
+            - tableExists:
+                tableName: acl_sid
+      comment: Создание таблицы acl_sid
+      changes:
+        - createTable:
+            tableName: acl_sid
+            columns:
+              - column:
+                  name: id
+                  type: bigint(20)
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: principal
+                  type: tinyint(1)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: sid
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+        - addUniqueConstraint:
+            tableName: acl_sid
+            columnNames: sid, principal
+            constraintName: unique_uk_1
+
+  - changeSet:
+      id: 2
+      author: boris.osechinskiy
+      preConditions:
+        - onFail: WARN
+        - not:
+            - tableExists:
+                tableName: acl_class
+      comment: Создание таблицы acl_class
+      changes:
+        - createTable:
+            tableName: acl_class
+            columns:
+              - column:
+                  name: id
+                  type: bigint(20)
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: class
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+        - addUniqueConstraint:
+            tableName: acl_class
+            columnNames: class
+            constraintName: unique_uk_2
+
+  - changeSet:
+      id: 3
+      author: boris.osechinskiy
+      preConditions:
+        - onFail: WARN
+        - not:
+            - tableExists:
+                tableName: acl_entry
+      comment: Создание таблицы acl_entry
+      changes:
+        - createTable:
+            tableName: acl_entry
+            columns:
+              - column:
+                  name: id
+                  type: bigint(20)
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: acl_object_identity
+                  type: bigint(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: ace_order
+                  type: int(11)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: sid
+                  type: bigint(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: mask
+                  type: int(11)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: granting
+                  type: tinyint(1)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: audit_success
+                  type: tinyint(1)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: audit_failure
+                  type: tinyint(1)
+                  constraints:
+                    nullable: false
+        - addUniqueConstraint:
+            tableName: acl_entry
+            columnNames: acl_object_identity, ace_order
+            constraintName: unique_uk_3
+
+  - changeSet:
+      id: 4
+      author: boris.osechinskiy
+      preConditions:
+        - onFail: WARN
+        - not:
+            - tableExists:
+                tableName: acl_object_identity
+      comment: Создание таблицы acl_object_identity
+      changes:
+        - createTable:
+            tableName: acl_object_identity
+            columns:
+              - column:
+                  name: id
+                  type: bigint(20)
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: object_id_class
+                  type: bigint(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: object_id_identity
+                  type: bigint(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: parent_object
+                  type: bigint(20)
+                  defaultValue: null
+              - column:
+                  name: owner_sid
+                  type: bigint(20)
+                  defaultValue: null
+                  constraints:
+              - column:
+                  name: entries_inheriting
+                  type: tinyint(1)
+                  constraints:
+                    nullable: false
+        - addUniqueConstraint:
+            tableName: acl_object_identity
+            columnNames: object_id_class, object_id_identity
+            constraintName: unique_uk_4
+
+  - changeSet:
+      id: 5
+      author: boris.osechinskiy
+      preConditions:
+        - onFail: WARN
+        - tableExists:
+            tableName: acl_object_identity
+        - tableExists:
+            tableName: acl_entry
+        - tableExists:
+            tableName: acl_sid
+        - tableExists:
+            tableName: acl_class
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: acl_object_identity
+            baseTableName: acl_entry
+            constraintName: fk_acl_entry_acl_object_identity
+            referencedColumnNames: id
+            referencedTableName: acl_object_identity
+        - addForeignKeyConstraint:
+            baseColumnNames: sid
+            baseTableName: acl_entry
+            constraintName: fk_acl_entry_acl_sid
+            referencedColumnNames: id
+            referencedTableName: acl_sid
+        - addForeignKeyConstraint:
+            baseColumnNames: parent_object
+            baseTableName: acl_object_identity
+            constraintName: fk_object_identity
+            referencedColumnNames: id
+            referencedTableName: acl_object_identity
+        - addForeignKeyConstraint:
+            baseColumnNames: object_id_class
+            baseTableName: acl_object_identity
+            constraintName: fk_acl_object_identity_acl_class
+            referencedColumnNames: id
+            referencedTableName: acl_class
+        - addForeignKeyConstraint:
+            baseColumnNames: owner_sid
+            baseTableName: acl_object_identity
+            constraintName: fk_acl_object_identity_acl_sid
+            referencedColumnNames: id
+            referencedTableName: acl_sid
+
