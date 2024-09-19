@@ -18,3 +18,4 @@
 * hw09-spring-mvc - Web-приложение полностью на стеке Spring
 * hw10-spring-mvc-rest - современное приложение на стеке Spring
 * hw11-spring-security - приложение с использованием Spring Security
+* hw12-spring-security-acl - приложение с использованием Spring ACL
