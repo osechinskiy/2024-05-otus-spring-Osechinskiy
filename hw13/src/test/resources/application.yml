@@ -1,0 +1,48 @@
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 0
+      database: testdb
+  main:
+    allow-bean-definition-overriding: false
+
+  batch:
+    job:
+      enabled: false
+
+  shell:
+    interactive:
+      enabled: false
+    noninteractive:
+      enabled: false
+    command:
+      version:
+        enabled: false
+
+  datasource:
+    url: jdbc:h2:mem:maindb
+
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+
+  liquibase:
+    enabled: true
+    change-log: liquibase/changelog.master.yml
+
+de:
+  flapdoodle:
+    mongodb:
+      embedded:
+        version: 4.0.2
+
+mongock:
+  runner-type: "ApplicationRunner"
+  change-logs-scan-package:  ru.otus.hw.mongok.changelog
+  mongo-db:
+    write-concern:
+      journal: false
+    read-concern: local
