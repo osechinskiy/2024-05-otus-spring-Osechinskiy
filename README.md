@@ -19,3 +19,4 @@
 * hw10-spring-mvc-rest - современное приложение на стеке Spring
 * hw11-spring-security - приложение с использованием Spring Security
 * hw12-spring-security-acl - приложение с использованием Spring ACL
+* hw13-spring-batch - приложение с пакетной обработкой данных на Spring Batch
