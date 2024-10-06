@@ -1,0 +1,39 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:maindb
+
+  jpa:
+    generate-ddl: false
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+
+  liquibase:
+    enabled: true
+    change-log: liquibase/changelog.xml
+
+  data:
+    rest:
+      base-path: datarest
+
+  jmx:
+    enabled:true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    logfile:
+      enabled: true
+  health:
+    defaults:
+      enabled: true
+
+logging:
+  file:
+    name: "hw15"
