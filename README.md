@@ -20,3 +20,4 @@
 * hw11-spring-security - приложение с использованием Spring Security
 * hw12-spring-security-acl - приложение с использованием Spring ACL
 * hw13-spring-batch - приложение с пакетной обработкой данных на Spring Batch
+* hw14-spring-integration - приложение-аналог сложного Enterprise на Spring Integration
