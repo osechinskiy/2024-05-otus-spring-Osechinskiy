@@ -22,3 +22,4 @@
 * hw13-spring-batch - приложение с пакетной обработкой данных на Spring Batch
 * hw14-spring-integration - приложение-аналог сложного Enterprise на Spring Integration
 * hw15-spring-actuator - приложение с применением Spring Boot Actuator
+* hw16-docker - обёртка приложения в Docker
