@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta th:insert="header/head.html"/>
+    <title>Книги</title>
+</head>
+
+<body class="bg-body-tertiary">
+<div th:insert="header/header.html"></div>
+<div class="container-sm mt-3 bg-white text-dark rounded mb-3">
+    <div class="row p-3">
+        <div class="d-flex justify-content-around">
+            <h3>Информация о книгах</h3>
+            <a class="btn btn-primary" href="#" th:href="@{/book/create}">Добавить книгу</a>
+        </div>
+    </div>
+</div>
+
+<div class="container-sm mt-3 bg-white text-dark rounded">
+    <div class="row p-3">
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="text-center">Id</th>
+                <th class="text-center">Название</th>
+                <th class="text-center">Автор</th>
+                <th class="text-center">Жанр</th>
+                <th class="text-center">Действие</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="book :${books}">
+                <td class="text-center align-middle" th:text="${book.id}"></td>
+                <td class="text-center align-middle" th:text="${book.title}"></td>
+                <td class="text-center align-middle" th:text="${book.author.getFullName()}"></td>
+                <td class="text-center align-middle" th:text="${book.genres}"></td>
+                <td class="text-center align-middle">
+                    <a class="btn btn-primary" href="edit.html" th:href="@{/book/edit/{id}(id = ${book.id})}">Изменить</a>
+                    <a class="btn btn-primary" href="book.html" th:href="@{/book/delete/{id}(id = ${book.id})}"
+                       th:attr="data-bs-whatever=@{/book/delete/{id}(id = ${book.id})}" data-bs-toggle="modal"
+                       data-bs-target="#modal">Удалить</a>
+                    <a class="btn btn-primary" href="../comment/comment.html" th:href="@{/comment/{id}(id = ${book.id})}">Комментарии</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Удаление книги</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    Вы действительно хотите удалить эту кнугу?<br>
+                    После удаления восстановление будет невозможно! <br>
+                </div>
+                <div class="modal-footer">
+                    <form class="form-delete" id="delete-book" action="book.html" th:method="post">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                        <button class="btn btn-danger" type="submit">Удалить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    var modal = document.getElementById('modal')
+    modal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget
+        var recipient = button.getAttribute('data-bs-whatever')
+        var modalForm = modal.querySelector('.form-delete')
+        modalForm.action = recipient
+
+        console.log(modalForm.action)
+    })
+</script>

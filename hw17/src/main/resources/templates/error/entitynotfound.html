@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta th:insert="header/head.html"/>
+    <title>Ошибка</title>
+</head>
+
+<body class="bg-body-tertiary">
+<div th:insert="header/header.html"></div>
+<div class="container-sm mt-3 bg-white text-dark rounded mb-3">
+    <div class="row p-3">
+        <span><strong>Ошибка:</strong></span>
+        <span th:text="${errorMessage}">Error</span>
+    </div>
+</div>
+</body>
+</html>
