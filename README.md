@@ -23,3 +23,4 @@
 * hw14-spring-integration - приложение-аналог сложного Enterprise на Spring Integration
 * hw15-spring-actuator - приложение с применением Spring Boot Actuator
 * hw16-docker - обёртка приложения в Docker
+* hw17-spring-hystrix - приложение с изолированными с помощью Resilience4J внешними вызовами
